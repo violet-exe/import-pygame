@@ -11,6 +11,7 @@ WHITE=(255,255,255)
 PURPLE=(120,10,230)
 BLACK=(0,0,0)
 BLUE=(0,220,200)
+GREEN=(0,255,0)
 
 #RESET
 
@@ -19,7 +20,7 @@ pygame.mixer.init()
 screen = pygame.display.set_mode((W,H))
 pygame.display.set_caption("早ㄤ")
 clock = pygame.time.Clock()
-GREEN=(0,255,0)
+
 
 #載入圖片
 
@@ -66,6 +67,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.centerx=W/2
         self.rect.bottom = H-50
         self.speedx = 8
+        self.speedy = 8
         
     def update(self):
         key_pressed = pygame.key.get_pressed()
@@ -73,11 +75,16 @@ class Player(pygame.sprite.Sprite):
             self.rect.x += self.speedx
         if key_pressed[pygame.K_a]:
             self.rect.x -= self.speedx
+        if key_pressed[pygame.K_s]:
+            self.rect.y += self.speedy
+        if key_pressed[pygame.K_w]:
+            self.rect.y -= self.speedy
             
         if self.rect.right > W:
             self.rect.right = W
         if self.rect.left < 0:
             self.rect.left = 0
+        
     def shoot(self):
         bullet = Bullet(self.rect.centerx , self.rect.top)
         all_sprites.add(bullet)
